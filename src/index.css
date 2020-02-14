@@ -9,3 +9,7 @@ body {
   padding: 0;
   overflow: hidden;
 }
+
+.neko {
+  position: fixed;
+}

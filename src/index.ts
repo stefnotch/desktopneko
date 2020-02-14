@@ -1,4 +1,4 @@
-import { app, BrowserWindow, Menu, Tray, shell } from "electron";
+import { app, BrowserWindow, Menu, Tray, shell, MenuItem } from "electron";
 import { ipcMain as ipc } from "electron-better-ipc";
 import * as path from "path";
 import * as fs from "fs-extra";
@@ -47,7 +47,8 @@ function createWindow() {
     transparent: true,
     skipTaskbar: true,
     webPreferences: {
-      preload: path.join(__dirname, "../dist/preload.js")
+      preload: path.join(__dirname, "../dist/preload.js"),
+      nodeIntegration: true
     }
   });
   mainWindow.setIgnoreMouseEvents(true, { forward: true });
@@ -63,12 +64,20 @@ function createWindow() {
 
 function createTray() {
   tray = new Tray(path.join(__dirname, "../assets/neko.png"));
+
+  let catSpawnButtons = config!.nekos.map(nekoConfig => {
+    return {
+      label: nekoConfig.name,
+      type: "normal",
+      click: (menuItem, browserWindow, event) => {
+        ipc.sendToRenderers("spawn-neko", nekoConfig);
+      }
+    } as Electron.MenuItemConstructorOptions;
+  });
+
   const contextMenu = Menu.buildFromTemplate([
     { type: "separator" },
-    { label: "Item1", type: "radio" },
-    { label: "Item2", type: "radio" },
-    { label: "Item3", type: "radio", checked: true },
-    { label: "Item4", type: "radio" },
+    ...catSpawnButtons,
     { type: "separator" },
     {
       label: "Open Nekos",
@@ -87,7 +96,8 @@ function createTray() {
 function loadConfig() {
   config = {
     settingsDirectory: settingsDirectory,
-    nekosDirectory: path.join(settingsDirectory, "nekos")
+    nekosDirectory: path.join(settingsDirectory, "nekos"),
+    nekos: []
   };
 
   fs.ensureDirSync(config.settingsDirectory);
@@ -108,6 +118,11 @@ function loadConfig() {
       if (!fs.existsSync(targetDirectory)) {
         fs.copySync(sourceDirectory, targetDirectory);
       }
+
+      config!.nekos.push({
+        directory: targetDirectory,
+        name: dirent.name
+      });
     });
 }
 

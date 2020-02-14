@@ -6,16 +6,11 @@
     <link rel="stylesheet" href="index.css" />
   </head>
   <body>
-    <h1 onmouseover="console.log(1)">💖 Hello World!</h1>
-    <p>Welcome to your Electron application.</p>
-    <img
-      src="./../assets/nekos/black/alert.gif"
-      style="position: absolute; bottom: 0; right:0"
-    />
+    <div class="neko-container"></div>
 
     <script>
       var exports = {};
+      require("./../dist/renderer");
     </script>
-    <script src="./../dist/renderer.js"></script>
   </body>
 </html>
