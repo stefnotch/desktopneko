@@ -1,10 +1,12 @@
 import { ipcRenderer as ipc } from "electron-better-ipc";
 import { mat2d, glMatrix, vec2 } from "gl-matrix";
-import Neko from "./entities/Neko";
+import NekoActor from "./custom/NekoActor";
 import Actor from "./entities/Actor";
+import Time from "./game/Time";
 
 let nekoContainer = document.querySelector(".neko-container") as HTMLElement;
 let world = new Actor();
+let lastTime = Date.now();
 
 (async () => {
   const config: Config = await ipc.callMain("get-config", null);
@@ -18,11 +20,14 @@ let world = new Actor();
 })();
 
 function spawnNeko(nekoConfig: NekoConfig) {
-  let neko = new Neko(nekoConfig.directory, nekoContainer);
-  world.add(neko);
+  let neko = new NekoActor(nekoConfig.directory, nekoContainer);
+  world.addChild(neko);
 }
 
 function update() {
+  Time.DeltaTime = Date.now() - lastTime;
+  Time.GameTime += Time.DeltaTime;
   vec2.set(world.size, window.innerWidth, window.innerHeight);
+  world.update();
   window.requestAnimationFrame(update);
 }
