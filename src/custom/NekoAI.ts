@@ -61,7 +61,7 @@ export default class NekoAI {
     // Idle, cat is board
     if (this.state == "idle") {
       let doSomething = Math.random() * Time.DeltaTime;
-      if (doSomething < 0.01) {
+      if (doSomething < 0.03) {
         let randomState = Math.random();
         if (randomState < 0.3) {
           this.state = "itch";
