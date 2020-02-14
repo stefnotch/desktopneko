@@ -11,8 +11,8 @@ export default class ImageActor extends Actor {
   }
 
   update() {
-    this.element.style.top = this.position[0] + "px";
-    this.element.style.left = this.position[1] + "px";
+    this.element.style.left = this.position[0] + "px";
+    this.element.style.top = this.position[1] + "px";
 
     super.update();
   }

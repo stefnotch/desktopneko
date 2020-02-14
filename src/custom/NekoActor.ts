@@ -30,12 +30,20 @@ let nekoAnimations: { [key in NekoAnimation]: NekoAnimationImage[] } = {
   scratch: [
     { direction: "n", image: "nscratch1.gif" },
     { direction: "n", image: "nscratch2.gif" },
+    { direction: "ne", image: "escratch1.gif" },
+    { direction: "ne", image: "escratch2.gif" },
     { direction: "e", image: "escratch1.gif" },
     { direction: "e", image: "escratch2.gif" },
+    { direction: "se", image: "escratch1.gif" },
+    { direction: "se", image: "escratch2.gif" },
     { direction: "s", image: "sscratch1.gif" },
     { direction: "s", image: "sscratch2.gif" },
+    { direction: "sw", image: "wscratch1.gif" },
+    { direction: "sw", image: "wscratch2.gif" },
     { direction: "w", image: "wscratch1.gif" },
-    { direction: "w", image: "wscratch2.gif" }
+    { direction: "w", image: "wscratch2.gif" },
+    { direction: "nw", image: "wscratch1.gif" },
+    { direction: "nw", image: "wscratch2.gif" }
   ],
   run: [
     { direction: "n", image: "nrun1.gif" },
