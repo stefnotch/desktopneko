@@ -34,9 +34,6 @@ function initialize() {
 }
 
 function createWindow() {
-  loadConfig();
-  createTray();
-
   // Create the browser window.
   mainWindow = new BrowserWindow({
     height: 600,
