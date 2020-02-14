@@ -30,8 +30,6 @@ function spawnNeko(nekoConfig: NekoConfig) {
   let x = Math.random() * (window.innerWidth - 32);
   let y = Math.random() * (window.innerHeight - 32);
   vec2.set(neko.localPosition, x, y);
-
-  neko.localPosition;
   world.addChild(neko);
 }
 

@@ -131,6 +131,15 @@ export default class NekoAI {
       ) {
         this.timeout = Time.seconds(5);
         this.state = "scratch";
+        if (this.actor.localPosition[0] <= 0) {
+          this.actor.angle = Math.PI;
+        } else if (this.actor.localPosition[1] <= 0) {
+          this.actor.angle = Math.PI / 2;
+        } else if (this.actor.localPosition[0] >= window.innerWidth - 32) {
+          this.actor.angle = 0;
+        } else {
+          this.actor.angle = Math.PI + Math.PI / 2;
+        }
       }
       return "run";
     } else if (this.state == "scratch") {
